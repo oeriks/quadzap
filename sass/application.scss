@@ -1,0 +1,28 @@
+$field-size: 75vh;
+$player-size: 4vh;
+
+html, body {
+  height: 100vh;
+  margin:0;
+  padding:0;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #03A9F4;
+}
+
+.field {
+  position: relative;
+  width: $field-size;
+  height: $field-size;
+  background: #B2EBF2;
+  border: $field-size / 60 solid #0097A7;
+}
+
+.field .player {
+  width: $player-size;
+  height: $player-size;
+  background: #727272;
+}

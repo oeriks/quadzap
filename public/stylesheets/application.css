@@ -1,0 +1,22 @@
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0; }
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #03A9F4; }
+
+.field {
+  position: relative;
+  width: 75vh;
+  height: 75vh;
+  background: #B2EBF2;
+  border: 1.25vh solid #0097A7; }
+
+.field .player {
+  width: 4vh;
+  height: 4vh;
+  background: #727272; }
