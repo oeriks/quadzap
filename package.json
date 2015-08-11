@@ -14,7 +14,7 @@
     "quadzap"
   ],
   "author": "Oskar Eriksson",
-  "license": "ISC",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/oeriks/quadzap/issues"
   },
@@ -26,6 +26,9 @@
     "jade": "^1.11.0"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-cli": "0.1.13",
+    "typescript": "~1.5.3",
+    "grunt-typescript": "~0.7.0"
   }
 }
