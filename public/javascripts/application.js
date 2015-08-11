@@ -8,9 +8,17 @@ var Direction;
 var Player = (function () {
     function Player(nick) {
         this.nick = nick;
+        this.x = 50;
+        this.y = 50;
     }
     Player.prototype.move = function (direction) {
         console.log(this.nick + ' moving ' + Direction[direction]);
+        switch (direction) {
+            case Direction.UP:
+                this.y -= 0.1;
+                break;
+        }
+        console.log('x: ' + this.x + ' y: ' + this.y);
     };
     return Player;
 })();

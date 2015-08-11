@@ -7,12 +7,23 @@ enum Direction {
 
 class Player {
     nick: string;
+    x: number;
+    y: number;
     constructor(nick: string) {
         this.nick = nick;
+        this.x = 50;
+        this.y = 50;
     }
 
     move(direction: Direction) {
       console.log(this.nick + ' moving ' + Direction[direction]);
+      switch(direction) {
+        case Direction.UP:
+          this.y -= 0.1;
+        break
+      }
+
+      console.log('x: ' + this.x + ' y: ' + this.y);
     }
 }
 

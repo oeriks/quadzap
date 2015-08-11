@@ -1,5 +1,11 @@
-$field-size: 75vh;
-$player-size: 5vh;
+$background-color: #03A9F4;
+
+$field-size: 0.75; // 75%; Max percentage of width/height viewport
+$field-color: #B2EBF2;
+$field-border-color: #0097A7;
+
+$player-size: 0.08 ; // 8%; Percentage of field size
+$player-color: #727272;
 
 html, body {
   height: 100vh;
@@ -10,19 +16,40 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #03A9F4;
+  background: $background-color;
 }
 
 .field {
-  position: relative;
-  width: $field-size;
-  height: $field-size;
-  background: #B2EBF2;
-  border: $field-size / 60 solid #0097A7;
+  background: $field-color;
 }
 
 .field .player {
-  width: $player-size;
-  height: $player-size;
-  background: #727272;
+  background: $player-color;
+}
+
+@media only screen and (orientation: portrait) {
+  $fs: #{100 * $field-size}vw;
+  $ps: calc(#{$fs} * #{$player-size});
+  .field {
+    width: $fs;
+    height: $fs;
+    border: calc(#{$fs} / 60) solid $field-border-color;
+  }
+  .field .player {
+    width: $ps;
+    height: $ps;
+  }
+}
+@media only screen and (orientation: landscape) {
+  $fs: #{100 * $field-size}vh;
+  $ps: calc(#{$fs} * #{$player-size});
+	.field {
+    width: $fs;
+    height: $fs;
+    border: calc(#{$fs} / 60) solid $field-border-color;
+	}
+  .field .player {
+    width: $ps;
+    height: $ps;
+  }
 }

@@ -10,13 +10,25 @@ body {
   background: #03A9F4; }
 
 .field {
-  position: relative;
-  width: 75vh;
-  height: 75vh;
-  background: #B2EBF2;
-  border: 1.25vh solid #0097A7; }
+  background: #B2EBF2; }
 
 .field .player {
-  width: 5vh;
-  height: 5vh;
   background: #727272; }
+
+@media only screen and (orientation: portrait) {
+  .field {
+    width: 75vw;
+    height: 75vw;
+    border: calc(75vw / 60) solid #0097A7; }
+  .field .player {
+    width: calc(75vw * 0.08);
+    height: calc(75vw * 0.08); } }
+
+@media only screen and (orientation: landscape) {
+  .field {
+    width: 75vh;
+    height: 75vh;
+    border: calc(75vh / 60) solid #0097A7; }
+  .field .player {
+    width: calc(75vh * 0.08);
+    height: calc(75vh * 0.08); } }
