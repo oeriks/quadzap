@@ -5,8 +5,20 @@ var Direction;
     Direction[Direction["DOWN"] = 2] = "DOWN";
     Direction[Direction["LEFT"] = 3] = "LEFT";
 })(Direction || (Direction = {}));
+var Field = (function () {
+    function Field() {
+        $('body').append('<div class="field" id="field"></div>');
+        this.element = document.getElementById('field');
+    }
+    Field.prototype.addPlayer = function (player) {
+        $(this.element).append('<div class="player" id="' + player.id + '"></div>');
+        player.element = document.getElementById('player');
+    };
+    return Field;
+})();
 var Player = (function () {
     function Player(nick) {
+        this.id = Math.floor(Math.random() * 1000);
         this.nick = nick;
         this.x = 50;
         this.y = 50;
@@ -18,11 +30,15 @@ var Player = (function () {
                 this.y -= 0.1;
                 break;
         }
+        console.log(this.element);
         console.log('x: ' + this.x + ' y: ' + this.y);
     };
     return Player;
 })();
+var field = new Field();
 var player = new Player('Jeppe');
+field.addPlayer(player);
+console.log(player.id);
 document.onkeydown = function (e) {
     switch (e.keyCode) {
         case 38:
