@@ -1,4 +1,5 @@
 ///<reference path="lib/jquery.d.ts" />
+///<reference path="element2d.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="player.ts" />
 ///<reference path="field.ts" />
@@ -31,6 +32,10 @@ document.onkeydown = function(event) {
 };
 document.onkeyup = function(event) {
     controller.setKeyUp(event.keyCode);
+};
+
+window.onresize = function(event) {
+    player.updatePosition();
 };
 
 setInterval(doThings, 17);

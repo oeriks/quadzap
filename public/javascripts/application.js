@@ -1,3 +1,22 @@
+var Element2D = (function () {
+    function Element2D() {
+    }
+    Element2D.prototype.outOfBounds = function (compElement) {
+        var elementBounds = this.element.getBoundingClientRect();
+        var compElementBounds = compElement.element.getBoundingClientRect();
+        if (elementBounds.top < compElementBounds.top)
+            return true;
+        else if (elementBounds.right > compElementBounds.right)
+            return true;
+        else if (elementBounds.bottom > compElementBounds.bottom)
+            return true;
+        else if (elementBounds.left < compElementBounds.left)
+            return true;
+        else
+            return false;
+    };
+    return Element2D;
+})();
 var Direction;
 (function (Direction) {
     Direction[Direction["UP"] = 0] = "UP";
@@ -30,8 +49,16 @@ var Controller = (function () {
     };
     return Controller;
 })();
-var Player = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Player = (function (_super) {
+    __extends(Player, _super);
     function Player(nick) {
+        _super.call(this);
         this.id = Math.floor(Math.random() * 1000);
         this.nick = nick;
         this.x = 0.5;
@@ -39,37 +66,54 @@ var Player = (function () {
         this.speed = 0.015;
     }
     Player.prototype.move = function (direction) {
-        switch (direction) {
-            case Direction.UP:
-                this.y -= this.speed;
-                break;
-            case Direction.RIGHT:
-                this.x += this.speed;
-                break;
-            case Direction.DOWN:
-                this.y += this.speed;
-                break;
-            case Direction.LEFT:
-                this.x -= this.speed;
-                break;
+        if (!this.outOfBounds(this.field)) {
+            switch (direction) {
+                case Direction.UP:
+                    this.y -= this.speed;
+                    break;
+                case Direction.RIGHT:
+                    this.x += this.speed;
+                    break;
+                case Direction.DOWN:
+                    this.y += this.speed;
+                    break;
+                case Direction.LEFT:
+                    this.x -= this.speed;
+                    break;
+            }
+            this.updatePosition();
         }
-        this.updatePosition();
     };
-    Player.prototype.updatePosition = function () {
+    Player.prototype.getMargins = function (x, y) {
         // Get the players percentual width compared to the field
         var playerWidth = player.jquery_element.width() / field.jquery_element.width();
         // Calculate marginleft in percentage, then multiply by field width again
-        var marginLeft = (this.x - playerWidth / 2) * field.jquery_element.width();
+        var marginLeft = (x - playerWidth / 2) * field.jquery_element.width();
         // Get the players percentual height compared to the field
         var playerHeight = player.jquery_element.height() / field.jquery_element.height();
-        var marginTop = (this.y - playerHeight / 2) * field.jquery_element.height();
-        player.jquery_element.css('margin', marginTop + 'px' + ' 0 0 ' + marginLeft + 'px');
+        var marginTop = (y - playerHeight / 2) * field.jquery_element.height();
+        return {
+            top: marginTop,
+            left: marginLeft
+        };
+    };
+    Player.prototype.updatePosition = function () {
+        var margins = this.getMargins(this.x, this.y);
+        player.jquery_element.css('margin', margins.top + 'px' + ' 0 0 ' + margins.left + 'px');
     };
     return Player;
-})();
-var Field = (function () {
+})(Element2D);
+var Field = (function (_super) {
+    __extends(Field, _super);
     function Field() {
-        $('body').append('<div class="field" id="field"></div>');
+        _super.call(this);
+        $('body').append(' \
+    <div class="field" id="field"> \
+      <div class="border top"></div> \
+      <div class="border right"></div> \
+      <div class="border bottom"></div> \
+      <div class="border left"></div> \
+    </div>');
         this.element = document.getElementById('field');
         this.jquery_element = $(this.element);
     }
@@ -82,8 +126,9 @@ var Field = (function () {
         this.player.updatePosition();
     };
     return Field;
-})();
+})(Element2D);
 ///<reference path="lib/jquery.d.ts" />
+///<reference path="element2d.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="player.ts" />
 ///<reference path="field.ts" />
@@ -111,5 +156,8 @@ document.onkeydown = function (event) {
 };
 document.onkeyup = function (event) {
     controller.setKeyUp(event.keyCode);
+};
+window.onresize = function (event) {
+    player.updatePosition();
 };
 setInterval(doThings, 17);

@@ -10,7 +10,12 @@ body {
   background: #03A9F4; }
 
 .field {
+  position: relative;
   background: #B2EBF2; }
+
+.field .border {
+  position: absolute;
+  background: #0097A7; }
 
 .field .player {
   background: #727272; }
@@ -18,17 +23,51 @@ body {
 @media only screen and (orientation: portrait) {
   .field {
     width: 75vw;
-    height: 75vw;
-    border: calc(75vw / 60) solid #0097A7; }
+    height: 75vw; }
   .field .player {
     width: calc(75vw * 0.08);
-    height: calc(75vw * 0.08); } }
+    height: calc(75vw * 0.08); }
+  .field .border.top,
+  .field .border.bottom {
+    width: 78vw;
+    height: 1.5vw;
+    left: -1.5vw; }
+  .field .border.top {
+    top: -1.5vw; }
+  .field .border.bottom {
+    bottom: -1.5vw; }
+  .field .border.left,
+  .field .border.right {
+    width: 1.5vw;
+    height: 78vw;
+    top: -1.5vw; }
+  .field .border.left {
+    left: -1.5vw; }
+  .field .border.right {
+    right: -1.5vw; } }
 
 @media only screen and (orientation: landscape) {
   .field {
     width: 75vh;
-    height: 75vh;
-    border: calc(75vh / 60) solid #0097A7; }
+    height: 75vh; }
   .field .player {
     width: calc(75vh * 0.08);
-    height: calc(75vh * 0.08); } }
+    height: calc(75vh * 0.08); }
+  .field .border.top,
+  .field .border.bottom {
+    width: 78vh;
+    height: 1.5vh;
+    left: -1.5vh; }
+  .field .border.top {
+    top: -1.5vh; }
+  .field .border.bottom {
+    bottom: -1.5vh; }
+  .field .border.left,
+  .field .border.right {
+    width: 1.5vh;
+    height: 78vh;
+    top: -1.5vh; }
+  .field .border.left {
+    left: -1.5vh; }
+  .field .border.right {
+    right: -1.5vh; } }

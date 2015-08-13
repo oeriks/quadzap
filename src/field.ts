@@ -1,9 +1,14 @@
-class Field {
-  element: HTMLElement;
-  jquery_element: JQuery;
+class Field extends Element2D{
   player: Player;
   constructor() {
-    $('body').append('<div class="field" id="field"></div>');
+    super();
+    $('body').append(' \
+    <div class="field" id="field"> \
+      <div class="border top"></div> \
+      <div class="border right"></div> \
+      <div class="border bottom"></div> \
+      <div class="border left"></div> \
+    </div>');
     this.element = document.getElementById('field');
     this.jquery_element = $(this.element);
   }

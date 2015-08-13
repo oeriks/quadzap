@@ -1,8 +1,11 @@
+@import "mixins";
+
 $background-color: #03A9F4;
 
 $field-size: 0.75; // 75%; Max percentage of width/height viewport
 $field-color: #B2EBF2;
 $field-border-color: #0097A7;
+$field-border-width: 0.015; // 5%; Max percentage of width/height viewport
 
 $player-size: 0.08 ; // 8%; Percentage of field size
 $player-color: #727272;
@@ -20,36 +23,22 @@ body {
 }
 
 .field {
+  position: relative;
   background: $field-color;
 }
-
+.field .border {
+  position: absolute;
+  background: $field-border-color;
+}
 .field .player {
   background: $player-color;
 }
 
 @media only screen and (orientation: portrait) {
-  $fs: #{100 * $field-size}vw;
-  $ps: calc(#{$fs} * #{$player-size});
-  .field {
-    width: $fs;
-    height: $fs;
-    border: calc(#{$fs} / 60) solid $field-border-color;
-  }
-  .field .player {
-    width: $ps;
-    height: $ps;
-  }
+  @include field-player-size('vw');
+  @include border-width-placement("vw");
 }
 @media only screen and (orientation: landscape) {
-  $fs: #{100 * $field-size}vh;
-  $ps: calc(#{$fs} * #{$player-size});
-	.field {
-    width: $fs;
-    height: $fs;
-    border: calc(#{$fs} / 60) solid $field-border-color;
-	}
-  .field .player {
-    width: $ps;
-    height: $ps;
-  }
+  @include field-player-size('vh');
+  @include border-width-placement("vh");
 }
