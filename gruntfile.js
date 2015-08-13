@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     },
     typescript: {
       base: {
-        src: ['src/**/*.ts'],
+        src: ['src/*.ts'],
         dest: 'public/javascripts/application.js',
         options: {
           module: 'amd',
