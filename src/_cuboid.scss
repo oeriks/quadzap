@@ -1,0 +1,67 @@
+$width: 400px;
+$height: 500px;
+$depth: 300px;
+
+.container3d {
+  width: $width;
+  height: $height;
+  position: relative;
+  perspective: 1000px;
+}
+
+.cuboid {
+  width: $width;
+  height: $height;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.cuboid figure {
+  margin: 0;
+  display: block;
+  position: absolute;
+}
+
+.cuboid .front,
+.cuboid .back {
+  width: $width;
+  height: $height;
+  background-color: green;
+}
+
+.cuboid .right,
+.cuboid .left {
+  width: $depth;
+  height: $height;
+  left: ($width / $depth - 1) * ($depth / 2);
+  background-color: red;
+}
+
+.cuboid .top,
+.cuboid .bottom {
+  width: $width;
+  height: $depth;
+  top: ($height / $depth - 1) * ($depth / 2);
+  background-color: blue;
+}
+
+.cuboid .front  { transform: rotateY(   0deg ) translateZ( $depth / 2 ); }
+.cuboid .back   { transform: rotateX( 180deg ) translateZ( $depth / 2 ); }
+.cuboid .right  { transform: rotateY(  90deg ) translateZ( $width / 2 ); }
+.cuboid .left   { transform: rotateY( -90deg ) translateZ( $width / 2 ); }
+.cuboid .top    { transform: rotateX(  90deg ) translateZ( $height / 2 ); }
+.cuboid .bottom { transform: rotateX( -90deg ) translateZ( $height / 2 ); }
+
+.cuboid.show-front  { transform: translateZ(  -50px ) rotateY(    0deg ); }
+.cuboid.show-back   { transform: translateZ(  -50px ) rotateX( -180deg ); }
+.cuboid.show-right  { transform: translateZ( -150px ) rotateY(  -40deg ) rotateX(  -40deg ); }
+.cuboid.show-left   { transform: translateZ( -150px ) rotateY(   90deg ); }
+.cuboid.show-top    { transform: translateZ( -100px ) rotateX(  -90deg ); }
+.cuboid.show-bottom { transform: translateZ( -100px ) rotateX(   90deg ); }
+
+.cuboid { transform: translateZ( -100px ); }
+.cuboid { transition: transform 0.1s; }
+
+.field {
+  display: none;
+}

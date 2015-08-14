@@ -3,6 +3,7 @@
 ///<reference path="controller.ts" />
 ///<reference path="player.ts" />
 ///<reference path="field.ts" />
+///<reference path="cuboid.ts" />
 
 
 var controller = new Controller();
@@ -10,6 +11,7 @@ var field = new Field();
 var player = new Player('Jeppe');
 field.addPlayer(player);
 
+var cuboid = new Cuboid('.container3d');
 
 function doThings() {
   // TODO: Fix prettier
