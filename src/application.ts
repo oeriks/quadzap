@@ -1,4 +1,6 @@
 ///<reference path="lib/jquery.d.ts" />
+///<reference path="lib/prefixfree.d.ts" />
+///<reference path="lib/handlebars.d.ts" />
 ///<reference path="element2d.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="player.ts" />

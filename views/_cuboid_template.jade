@@ -1,0 +1,48 @@
+script(id='cuboid-template' type='text/x-handlebars-template')
+  style(type='text/css', id='style{{id}}').
+    {{css_id}} {
+      width: {{width}}{{unit}};
+      height: {{height}}{{unit}};
+      position: absolute;
+      transform-style: preserve-3d;
+    }
+    
+    {{css_id}} figure {
+        margin: 0;
+        display: block;
+        position: absolute;
+    }
+      
+    {{css_id}} .front,
+    {{css_id}} .back {
+      width: {{width}}{{unit}};
+      height: {{height}}{{unit}};
+      background-color: green;
+    }
+    
+    {{css_id}} .right,
+    {{css_id}} .left {
+      width: {{depth}}{{unit}};
+      height: {{height}}{{unit}};
+      left: {{right_left_left}}{{unit}};
+      background-color: red;
+    }
+    
+    {{css_id}} .top,
+    {{css_id}} .bottom {
+      width: {{width}}{{unit}};
+      height: {{depth}}{{unit}};
+      top: {{top_bottom_top}}{{unit}};
+      background-color: blue;
+    }
+    
+    {{css_id}} .front  { transform: rotateY(   0deg ) translateZ( {{translate_z_front_back}}{{unit}} ); }
+    {{css_id}} .back   { transform: rotateX( 180deg ) translateZ( {{translate_z_front_back}}{{unit}} ); }
+    {{css_id}} .right  { transform: rotateY(  90deg ) translateZ( {{translate_z_right_left}}{{unit}} ); }
+    {{css_id}} .left   { transform: rotateY( -90deg ) translateZ( {{translate_z_right_left}}{{unit}} ); }
+    {{css_id}} .top    { transform: rotateX(  90deg ) translateZ( {{translate_z_top_bottom}}{{unit}} ); }
+    {{css_id}} .bottom { transform: rotateX( -90deg ) translateZ( {{translate_z_top_bottom}}{{unit}} ); }
+
+    {{css_id}}.rotate { transform: translateZ( -150px ) rotateY(  -40deg ) rotateX(  -40deg ); }
+    {{css_id}} { transition: transform 2s; }
+    {{css_id}} { transform: translateZ( 90px ); }

@@ -1,5 +1,4 @@
 @import "mixins";
-@import "cuboid";
 
 $background-color: #03A9F4;
 
@@ -10,6 +9,9 @@ $field-border-width: 0.015; // 5%; Max percentage of width/height viewport
 
 $player-size: 0.08 ; // 8%; Percentage of field size
 $player-color: #727272;
+
+$container-width: 75vh;
+$container-height: 75vh;
 
 html, body {
   height: 100vh;
@@ -24,6 +26,7 @@ body {
 }
 
 .field {
+  display: none;
   position: relative;
   background: $field-color;
 }
@@ -33,6 +36,16 @@ body {
 }
 .field .player {
   background: $player-color;
+}
+
+.container3d {
+  width: $container-width;
+  height: $container-height;
+  position: relative;
+  perspective: 400vh;
+  transform-style: preserve-3d;
+  background: $field-color;
+  transform: rotateY(-20deg) rotateX(79deg);
 }
 
 @media only screen and (orientation: portrait) {

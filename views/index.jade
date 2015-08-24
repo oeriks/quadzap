@@ -7,6 +7,9 @@ html
     link(rel='stylesheet', href='stylesheets/application.css')
   body
     div(class='container3d')
-    script(src='javascripts/jquery-2.1.4.min.js')
+    include _cuboid_template
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js')
     script(src='javascripts/application.js')
     script(src='//localhost:35729/livereload.js') //- to use Livereload
