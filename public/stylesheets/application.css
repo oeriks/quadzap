@@ -7,7 +7,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #03A9F4; }
+  background: #03A9F4;
+  perspective: 200vh; }
 
 .field {
   display: none;
@@ -25,7 +26,6 @@ body {
   width: 75vh;
   height: 75vh;
   position: relative;
-  perspective: 400vh;
   transform-style: preserve-3d;
   background: #B2EBF2;
   transform: rotateY(-20deg) rotateX(79deg); }
