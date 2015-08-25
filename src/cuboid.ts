@@ -1,33 +1,37 @@
-
-class Cuboid {
+class Cuboid extends Position3D {
   id: number;
   container: HTMLElement;
-  front: HTMLElement;
-  back: HTMLElement;
-  right: HTMLElement;
-  left: HTMLElement;
-  top: HTMLElement;
-  bottom: HTMLElement;
+  front_face: HTMLElement;
+  back_face: HTMLElement;
+  right_face: HTMLElement;
+  left_face: HTMLElement;
+  top_face: HTMLElement;
+  bottom_face: HTMLElement;
 
-  constructor(parent: string, width: number, height: number, depth: number, color: string) {
+  constructor(parent: string,
+              width: number,
+              height: number,
+              depth: number,
+              color: string) {
+    super()
     this.id = Math.floor(Math.random() * 1000);
-    this.front = this.createFace("front");
-    this.back = this.createFace("back");
-    this.right = this.createFace("right");
-    this.left = this.createFace("left");
-    this.top = this.createFace("top");
-    this.bottom = this.createFace("bottom");
+    this.front_face = this.createFace("front");
+    this.back_face = this.createFace("back");
+    this.right_face = this.createFace("right");
+    this.left_face = this.createFace("left");
+    this.top_face = this.createFace("top");
+    this.bottom_face = this.createFace("bottom");
 
 
     this.container = document.createElement("div");
     this.container.className = "cuboid";
     this.container.id = "cuboid" + this.id;
-    this.container.appendChild(this.front);
-    this.container.appendChild(this.back);
-    this.container.appendChild(this.right);
-    this.container.appendChild(this.left);
-    this.container.appendChild(this.top);
-    this.container.appendChild(this.bottom);
+    this.container.appendChild(this.front_face);
+    this.container.appendChild(this.back_face);
+    this.container.appendChild(this.right_face);
+    this.container.appendChild(this.left_face);
+    this.container.appendChild(this.top_face);
+    this.container.appendChild(this.bottom_face);
     $(parent).append(this.container);
 
     this.createStyle(width, height, depth, color);
@@ -58,6 +62,9 @@ class Cuboid {
     };
 
     $('head').append(template(data));
+  }
+  updatePosition() {
+    $(this.container).css('transform', 'translate3d(' + this.getX() + 'vh,' + this.getY() + 'vh,' + this.getZ() + 'vh)');
   }
 
 

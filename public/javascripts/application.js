@@ -1,3 +1,57 @@
+var Position3D = (function () {
+    function Position3D(x, y, z) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        if (z === void 0) { z = 0; }
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    Position3D.prototype.up = function (speed) {
+        this.y -= speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.down = function (speed) {
+        this.y += speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.left = function (speed) {
+        this.x -= speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.right = function (speed) {
+        this.x += speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.lower = function (speed) {
+        this.z -= speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.higher = function (speed) {
+        this.z += speed;
+        this.updatePosition();
+    };
+    Position3D.prototype.getX = function () {
+        return this.x;
+    };
+    Position3D.prototype.getY = function () {
+        return this.y;
+    };
+    Position3D.prototype.getZ = function () {
+        return this.z;
+    };
+    Position3D.prototype.getPosition = function () {
+        return {
+            x: this.x,
+            y: this.y,
+            z: this.z
+        };
+    };
+    Position3D.prototype.updatePosition = function () {
+        throw new Error("updatePosition() is not implemented");
+    };
+    return Position3D;
+})();
 var Direction;
 (function (Direction) {
     Direction[Direction["UP"] = 0] = "UP";
@@ -30,24 +84,32 @@ var Controller = (function () {
     };
     return Controller;
 })();
-var Cuboid = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Cuboid = (function (_super) {
+    __extends(Cuboid, _super);
     function Cuboid(parent, width, height, depth, color) {
+        _super.call(this);
         this.id = Math.floor(Math.random() * 1000);
-        this.front = this.createFace("front");
-        this.back = this.createFace("back");
-        this.right = this.createFace("right");
-        this.left = this.createFace("left");
-        this.top = this.createFace("top");
-        this.bottom = this.createFace("bottom");
+        this.front_face = this.createFace("front");
+        this.back_face = this.createFace("back");
+        this.right_face = this.createFace("right");
+        this.left_face = this.createFace("left");
+        this.top_face = this.createFace("top");
+        this.bottom_face = this.createFace("bottom");
         this.container = document.createElement("div");
         this.container.className = "cuboid";
         this.container.id = "cuboid" + this.id;
-        this.container.appendChild(this.front);
-        this.container.appendChild(this.back);
-        this.container.appendChild(this.right);
-        this.container.appendChild(this.left);
-        this.container.appendChild(this.top);
-        this.container.appendChild(this.bottom);
+        this.container.appendChild(this.front_face);
+        this.container.appendChild(this.back_face);
+        this.container.appendChild(this.right_face);
+        this.container.appendChild(this.left_face);
+        this.container.appendChild(this.top_face);
+        this.container.appendChild(this.bottom_face);
         $(parent).append(this.container);
         this.createStyle(width, height, depth, color);
     }
@@ -76,14 +138,11 @@ var Cuboid = (function () {
         };
         $('head').append(template(data));
     };
+    Cuboid.prototype.updatePosition = function () {
+        $(this.container).css('transform', 'translate3d(' + this.getX() + 'vh,' + this.getY() + 'vh,' + this.getZ() + 'vh)');
+    };
     return Cuboid;
-})();
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+})(Position3D);
 var Player = (function (_super) {
     __extends(Player, _super);
     function Player(nick, scene, width, height, depth, color) {
@@ -94,68 +153,36 @@ var Player = (function (_super) {
         _super.call(this, scene, width, height, depth, color);
         this.id = Math.floor(Math.random() * 1000);
         this.nick = nick;
-        this.x_offset = 0;
-        this.y_offset = 0;
-        this.z_offset = 0;
         this.speed = 1;
     }
     Player.prototype.move = function (direction) {
-        //if (!this.outOfBounds(this.field)) {
         switch (direction) {
             case Direction.UP:
-                this.y_offset -= this.speed;
+                this.up(this.speed);
                 break;
             case Direction.RIGHT:
-                this.x_offset += this.speed;
+                this.right(this.speed);
                 break;
             case Direction.DOWN:
-                this.y_offset += this.speed;
+                this.down(this.speed);
                 break;
             case Direction.LEFT:
-                this.x_offset -= this.speed;
+                this.left(this.speed);
                 break;
         }
-        this.updatePosition();
-        //}
-    };
-    /*
-    getMargins(x: number, y: number) {
-      // Get the players percentual width compared to the field
-      var playerWidth = player.jquery_element.width() / field.jquery_element.width();
-      // Calculate marginleft in percentage, then multiply by field width again
-      var marginLeft = (x - playerWidth / 2) * field.jquery_element.width();
-  
-      // Get the players percentual height compared to the field
-      var playerHeight = player.jquery_element.height() / field.jquery_element.height();
-      var marginTop = (y - playerHeight / 2) * field.jquery_element.height();
-  
-      return {
-        top: marginTop,
-        left: marginLeft
-      }
-    }
-    */
-    Player.prototype.updatePosition = function () {
-        //var margins = this.getMargins(this.x, this.y);
-        console.log(this.container);
-        console.log('translate3d(' + this.x_offset + 'vh,' + this.y_offset + 'vh' + this.z_offset + 'vh)');
-        $(this.container).css('transform', 'translate3d(' + this.x_offset + 'vh,' + this.y_offset + 'vh,' + this.z_offset + 'vh)');
     };
     return Player;
 })(Cuboid);
 ///<reference path="lib/jquery.d.ts" />
 ///<reference path="lib/prefixfree.d.ts" />
 ///<reference path="lib/handlebars.d.ts" />
-//<reference path="element2d.ts" />
+///<reference path="position.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="cuboid.ts" />
 ///<reference path="player.ts" />
-//<reference path="field.ts" />
 var controller = new Controller();
-//var field = new Field();
 var player = new Player('Jeppe', '.scene');
-//field.addPlayer(player);
-//var cuboid = new Cuboid('.scene', 10, 10, 10, '#727272');
+var player2 = new Player('Jeppe', '.scene');
 function doThings() {
     // TODO: Fix prettier
     if (controller.keyDown[Direction.UP]) {
@@ -181,39 +208,8 @@ window.onresize = function (event) {
     //player.updatePosition();
 };
 setInterval(doThings, 17);
-var Element2D = (function () {
-    function Element2D() {
-    }
-    Element2D.prototype.outOfBounds = function (compElement) {
-        var elementBounds = this.element.getBoundingClientRect();
-        var compElementBounds = compElement.element.getBoundingClientRect();
-        if (elementBounds.top < compElementBounds.top)
-            return true;
-        else if (elementBounds.right > compElementBounds.right)
-            return true;
-        else if (elementBounds.bottom > compElementBounds.bottom)
-            return true;
-        else if (elementBounds.left < compElementBounds.left)
-            return true;
-        else
-            return false;
-    };
-    return Element2D;
-})();
-var Field = (function (_super) {
-    __extends(Field, _super);
+var Field = (function () {
     function Field() {
-        _super.call(this);
-        /*
-        $('body').append(' \
-        <div class="field" id="field"> \
-          <div class="border top"></div> \
-          <div class="border right"></div> \
-          <div class="border bottom"></div> \
-          <div class="border left"></div> \
-        </div>');
-        this.element = document.getElementById('field');
-        this.jquery_element = $(this.element);*/
     }
     return Field;
-})(Element2D);
+})();

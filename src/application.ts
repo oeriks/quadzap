@@ -1,19 +1,15 @@
 ///<reference path="lib/jquery.d.ts" />
 ///<reference path="lib/prefixfree.d.ts" />
 ///<reference path="lib/handlebars.d.ts" />
-//<reference path="element2d.ts" />
+///<reference path="position.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="cuboid.ts" />
 ///<reference path="player.ts" />
-//<reference path="field.ts" />
 
 
 var controller = new Controller();
-//var field = new Field();
 var player = new Player('Jeppe', '.scene');
-//field.addPlayer(player);
-
-//var cuboid = new Cuboid('.scene', 10, 10, 10, '#727272');
+var player2 = new Player('Jeppe', '.scene');
 
 function doThings() {
   // TODO: Fix prettier
