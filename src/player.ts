@@ -1,39 +1,45 @@
-class Player extends Element2D {
+class Player extends Cuboid {
   id: number;
-  field: Field;
   nick: string;
-  x: number;
-  y: number;
+  x_offset: number;
+  y_offset: number;
+  z_offset: number
   speed: number;
-  constructor(nick: string) {
-    super();
+  constructor(nick: string,
+              scene: string,
+              width: number = 10,
+              height: number = 10,
+              depth: number = 10,
+              color: string = '#727272') {
+    super(scene, width, height, depth, color);
     this.id = Math.floor(Math.random() * 1000);
     this.nick = nick;
-    this.x = 0.5;
-    this.y = 0.5;
-    this.speed = 0.015;
+    this.x_offset = 0;
+    this.y_offset = 0;
+    this.z_offset = 0;
+    this.speed = 1;
 
   }
   move(direction: Direction) {
-    if (!this.outOfBounds(this.field)) {
+    //if (!this.outOfBounds(this.field)) {
       switch(direction) {
         case Direction.UP:
-          this.y -= this.speed;
+          this.y_offset -= this.speed;
         break;
         case Direction.RIGHT:
-          this.x += this.speed;
+          this.x_offset += this.speed;
         break;
         case Direction.DOWN:
-          this.y += this.speed;
+          this.y_offset += this.speed;
         break;
         case Direction.LEFT:
-          this.x -= this.speed;
+          this.x_offset -= this.speed;
         break;
       }
       this.updatePosition();
-    }
+    //}
   }
-
+  /*
   getMargins(x: number, y: number) {
     // Get the players percentual width compared to the field
     var playerWidth = player.jquery_element.width() / field.jquery_element.width();
@@ -49,10 +55,11 @@ class Player extends Element2D {
       left: marginLeft
     }
   }
-
+  */
   updatePosition() {
-    var margins = this.getMargins(this.x, this.y);
-
-    player.jquery_element.css('margin', margins.top + 'px' + ' 0 0 ' + margins.left + 'px');
+    //var margins = this.getMargins(this.x, this.y);
+    console.log(this.container);
+    console.log('translate3d(' + this.x_offset + 'vh,' + this.y_offset + 'vh' + this.z_offset + 'vh)');
+    $(this.container).css('transform', 'translate3d(' + this.x_offset + 'vh,' + this.y_offset + 'vh,' + this.z_offset + 'vh)');
   }
 }

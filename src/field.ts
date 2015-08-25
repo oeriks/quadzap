@@ -2,6 +2,7 @@ class Field extends Element2D{
   player: Player;
   constructor() {
     super();
+    /*
     $('body').append(' \
     <div class="field" id="field"> \
       <div class="border top"></div> \
@@ -10,9 +11,9 @@ class Field extends Element2D{
       <div class="border left"></div> \
     </div>');
     this.element = document.getElementById('field');
-    this.jquery_element = $(this.element);
+    this.jquery_element = $(this.element);*/
   }
-
+  /*
   addPlayer(player: Player) {
     $(this.element).append('<div class="player" id="' + player.id + '"></div>');
     player.element = document.getElementById(""+player.id);
@@ -21,5 +22,5 @@ class Field extends Element2D{
     this.player.field = this;
     this.player.updatePosition();
   }
-
+  */
 }

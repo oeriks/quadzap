@@ -3,7 +3,7 @@ script(id='cuboid-style-template' type='text/x-handlebars-template')
     {{css_id}} {
       width: {{width}}{{unit}};
       height: {{depth}}{{unit}};
-      position: absolute;
+      position: relative;
       transform-style: preserve-3d;
     }
     
@@ -18,7 +18,7 @@ script(id='cuboid-style-template' type='text/x-handlebars-template')
       width: {{width}}{{unit}};
       height: {{height}}{{unit}};
       top: {{top_bottom_top}}{{unit}};
-      background-color: blue;
+      background-color: {{color}};
     }
     
     {{css_id}} .right,
@@ -26,14 +26,14 @@ script(id='cuboid-style-template' type='text/x-handlebars-template')
       width: {{height}}{{unit}};
       height: {{depth}}{{unit}};
       left: {{right_left_left}}{{unit}};
-      background-color: red;
+      background-color: {{color}};
     }
     
     {{css_id}} .top,
     {{css_id}} .bottom {
       width: {{width}}{{unit}};
       height: {{depth}}{{unit}};
-      background-color: green;
+      background-color: {{color}};
     }
     
     {{css_id}} .front  { transform: rotateX( -90deg ) translateZ( {{translate_z_front_back}}{{unit}} ); }

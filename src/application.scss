@@ -39,12 +39,14 @@ body {
   background: $player-color;
 }
 
-.container3d {
+.scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: $container-width;
   height: $container-height;
-  position: relative;
   transform-style: preserve-3d;
-  background: $field-color;
+  background: rgba(178, 235, 242, 0.5);
   transform: rotateY(-20deg) rotateX(79deg);
 }
 

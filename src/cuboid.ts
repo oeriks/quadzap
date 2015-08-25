@@ -9,7 +9,7 @@ class Cuboid {
   top: HTMLElement;
   bottom: HTMLElement;
 
-  constructor(parent: string) {
+  constructor(parent: string, width: number, height: number, depth: number, color: string) {
     this.id = Math.floor(Math.random() * 1000);
     this.front = this.createFace("front");
     this.back = this.createFace("back");
@@ -30,7 +30,7 @@ class Cuboid {
     this.container.appendChild(this.bottom);
     $(parent).append(this.container);
 
-    this.createStyle();
+    this.createStyle(width, height, depth, color);
   }
 
   createFace(className: string) {
@@ -38,10 +38,9 @@ class Cuboid {
     face.className = className;
     return face;
   }
-  createStyle() {
+  createStyle(width: number, height: number, depth: number, color: string) {
     var source = $("#cuboid-style-template").html();
     var template = Handlebars.compile(source);
-    var width = 20, height = 30, depth = 30;
     var data = {
         id: this.id,
         css_id: '#cuboid' + this.id,
@@ -49,6 +48,7 @@ class Cuboid {
         height: height,
         width: width,
         depth: depth,
+        color: color,
         right_left_left: (width / height - 1) * (height / 2),
         top_bottom_top: (depth / height - 1) * (height / 2),
         translate_z: height / 2,
