@@ -23,14 +23,11 @@ body {
   background: #727272; }
 
 .scene {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 75vh;
   height: 75vh;
   transform-style: preserve-3d;
   background: rgba(178, 235, 242, 0.5);
-  transform: rotateY(-20deg) rotateX(79deg); }
+  transform: rotateY(-20deg) rotateX(50deg); }
 
 @media only screen and (orientation: portrait) {
   .field {

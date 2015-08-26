@@ -47,6 +47,12 @@ var Position3D = (function () {
             z: this.z
         };
     };
+    Position3D.prototype.setPosition = function (x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.updatePosition();
+    };
     Position3D.prototype.updatePosition = function () {
         throw new Error("updatePosition() is not implemented");
     };
@@ -94,6 +100,7 @@ var Cuboid = (function (_super) {
     __extends(Cuboid, _super);
     function Cuboid(parent, width, height, depth, color) {
         _super.call(this);
+        this.parent = parent;
         this.id = Math.floor(Math.random() * 1000);
         this.front_face = this.createFace("front");
         this.back_face = this.createFace("back");
@@ -110,7 +117,7 @@ var Cuboid = (function (_super) {
         this.container.appendChild(this.left_face);
         this.container.appendChild(this.top_face);
         this.container.appendChild(this.bottom_face);
-        $(parent).append(this.container);
+        $(this.parent).append(this.container);
         this.createStyle(width, height, depth, color);
     }
     Cuboid.prototype.createFace = function (className) {
@@ -121,6 +128,8 @@ var Cuboid = (function (_super) {
     Cuboid.prototype.createStyle = function (width, height, depth, color) {
         var source = $("#cuboid-style-template").html();
         var template = Handlebars.compile(source);
+        var j_parent = $(this.parent);
+        var j_container = $(this.container);
         var data = {
             id: this.id,
             css_id: '#cuboid' + this.id,
@@ -129,6 +138,8 @@ var Cuboid = (function (_super) {
             width: width,
             depth: depth,
             color: color,
+            top: 75 / 2 - height / 2,
+            left: 75 / 2 - width / 2,
             right_left_left: (width / height - 1) * (height / 2),
             top_bottom_top: (depth / height - 1) * (height / 2),
             translate_z: height / 2,
@@ -143,12 +154,28 @@ var Cuboid = (function (_super) {
     };
     return Cuboid;
 })(Position3D);
+var Field = (function () {
+    function Field() {
+        this.createEdges();
+    }
+    Field.prototype.createEdges = function () {
+        this.top = new Cuboid(".scene", 75, 5, 5, "#0097A7");
+        this.top.setPosition(0, -35, 0);
+        this.right = new Cuboid(".scene", 5, 5, 75, "#0097A7");
+        this.right.setPosition(35, -35, 0);
+        this.bottom = new Cuboid(".scene", 75, 5, 5, "#0097A7");
+        this.bottom.setPosition(0, 35, 0);
+        this.left = new Cuboid(".scene", 5, 5, 75, "#0097A7");
+        this.left.setPosition(-35, -35, 0);
+    };
+    return Field;
+})();
 var Player = (function (_super) {
     __extends(Player, _super);
     function Player(nick, scene, width, height, depth, color) {
-        if (width === void 0) { width = 10; }
-        if (height === void 0) { height = 10; }
-        if (depth === void 0) { depth = 10; }
+        if (width === void 0) { width = 7; }
+        if (height === void 0) { height = 7; }
+        if (depth === void 0) { depth = 7; }
         if (color === void 0) { color = '#727272'; }
         _super.call(this, scene, width, height, depth, color);
         this.id = Math.floor(Math.random() * 1000);
@@ -179,10 +206,11 @@ var Player = (function (_super) {
 ///<reference path="position.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="cuboid.ts" />
+///<reference path="field.ts" />
 ///<reference path="player.ts" />
 var controller = new Controller();
 var player = new Player('Jeppe', '.scene');
-var player2 = new Player('Jeppe', '.scene');
+var field = new Field();
 function doThings() {
     // TODO: Fix prettier
     if (controller.keyDown[Direction.UP]) {
@@ -208,8 +236,3 @@ window.onresize = function (event) {
     //player.updatePosition();
 };
 setInterval(doThings, 17);
-var Field = (function () {
-    function Field() {
-    }
-    return Field;
-})();

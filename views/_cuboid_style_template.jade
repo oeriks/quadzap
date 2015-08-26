@@ -3,7 +3,9 @@ script(id='cuboid-style-template' type='text/x-handlebars-template')
     {{css_id}} {
       width: {{width}}{{unit}};
       height: {{depth}}{{unit}};
-      position: relative;
+      position: absolute;
+      top: {{top}}{{unit}};
+      left: {{left}}{{unit}};
       transform-style: preserve-3d;
     }
     

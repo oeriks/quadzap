@@ -4,12 +4,13 @@
 ///<reference path="position.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="cuboid.ts" />
+///<reference path="field.ts" />
 ///<reference path="player.ts" />
 
 
-var controller = new Controller();
-var player = new Player('Jeppe', '.scene');
-var player2 = new Player('Jeppe', '.scene');
+var controller = new Controller()
+var player = new Player('Jeppe', '.scene')
+var field = new Field()
 
 function doThings() {
   // TODO: Fix prettier

@@ -8,7 +8,7 @@ class Cuboid extends Position3D {
   top_face: HTMLElement;
   bottom_face: HTMLElement;
 
-  constructor(parent: string,
+  constructor(private parent: string,
               width: number,
               height: number,
               depth: number,
@@ -32,7 +32,7 @@ class Cuboid extends Position3D {
     this.container.appendChild(this.left_face);
     this.container.appendChild(this.top_face);
     this.container.appendChild(this.bottom_face);
-    $(parent).append(this.container);
+    $(this.parent).append(this.container);
 
     this.createStyle(width, height, depth, color);
   }
@@ -45,6 +45,8 @@ class Cuboid extends Position3D {
   createStyle(width: number, height: number, depth: number, color: string) {
     var source = $("#cuboid-style-template").html();
     var template = Handlebars.compile(source);
+    var j_parent = $(this.parent);
+    var j_container = $(this.container);
     var data = {
         id: this.id,
         css_id: '#cuboid' + this.id,
@@ -53,6 +55,8 @@ class Cuboid extends Position3D {
         width: width,
         depth: depth,
         color: color,
+        top: 75 / 2 - height / 2, // TODO: Not hardcode
+        left: 75 / 2 - width / 2, // TODO: Not hardcode
         right_left_left: (width / height - 1) * (height / 2),
         top_bottom_top: (depth / height - 1) * (height / 2),
         translate_z: height / 2,
@@ -66,7 +70,4 @@ class Cuboid extends Position3D {
   updatePosition() {
     $(this.container).css('transform', 'translate3d(' + this.getX() + 'vh,' + this.getY() + 'vh,' + this.getZ() + 'vh)');
   }
-
-
-
 }

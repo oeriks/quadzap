@@ -47,6 +47,12 @@ class Position3D {
       z: this.z
     }
   }
+  setPosition(x: number, y: number, z: number) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.updatePosition();
+  }
   updatePosition() {
     throw new Error("updatePosition() is not implemented");
   }

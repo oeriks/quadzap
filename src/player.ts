@@ -4,9 +4,9 @@ class Player extends Cuboid {
   speed: number;
   constructor(nick: string,
               scene: string,
-              width: number = 10,
-              height: number = 10,
-              depth: number = 10,
+              width: number = 7,
+              height: number = 7,
+              depth: number = 7,
               color: string = '#727272') {
     super(scene, width, height, depth, color);
     this.id = Math.floor(Math.random() * 1000);
