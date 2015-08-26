@@ -13,6 +13,7 @@ var keyCodeDirections = {
 
 // Gaah, dictionaries cannot have enums as index values.. yet..
 class Controller {
+  player: Player
   keyDown: { [direction: number] : boolean; } = {};
 
   constructor() {
@@ -29,5 +30,41 @@ class Controller {
   setKeyUp(keyCode: number) {
     var direction = keyCodeDirections[keyCode];
     this.keyDown[direction] = false;
+  }
+
+  assignPlayer(player: Player) {
+    this.player = player
+    this.listenForEvents()
+    this.eventLoop()
+  }
+
+  listenForEvents() {
+    var self = this
+    document.onkeydown = function(event) {
+        self.setKeyDown(event.keyCode);
+    };
+    document.onkeyup = function(event) {
+        self.setKeyUp(event.keyCode);
+    };
+  }
+
+  eventLoop() {
+    function doThings() {
+      // TODO: Fix prettier
+      if (controller.keyDown[Direction.UP]) {
+        player.move(Direction.UP);
+      }
+      if (controller.keyDown[Direction.RIGHT]) {
+        player.move(Direction.RIGHT);
+      }
+      if (controller.keyDown[Direction.DOWN]) {
+        player.move(Direction.DOWN);
+      }
+      if (controller.keyDown[Direction.LEFT]) {
+        player.move(Direction.LEFT);
+      }
+    }
+
+    setInterval(doThings, 5);
   }
 }

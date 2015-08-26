@@ -88,6 +88,38 @@ var Controller = (function () {
         var direction = keyCodeDirections[keyCode];
         this.keyDown[direction] = false;
     };
+    Controller.prototype.assignPlayer = function (player) {
+        this.player = player;
+        this.listenForEvents();
+        this.eventLoop();
+    };
+    Controller.prototype.listenForEvents = function () {
+        var self = this;
+        document.onkeydown = function (event) {
+            self.setKeyDown(event.keyCode);
+        };
+        document.onkeyup = function (event) {
+            self.setKeyUp(event.keyCode);
+        };
+    };
+    Controller.prototype.eventLoop = function () {
+        function doThings() {
+            // TODO: Fix prettier
+            if (controller.keyDown[Direction.UP]) {
+                player.move(Direction.UP);
+            }
+            if (controller.keyDown[Direction.RIGHT]) {
+                player.move(Direction.RIGHT);
+            }
+            if (controller.keyDown[Direction.DOWN]) {
+                player.move(Direction.DOWN);
+            }
+            if (controller.keyDown[Direction.LEFT]) {
+                player.move(Direction.LEFT);
+            }
+        }
+        setInterval(doThings, 5);
+    };
     return Controller;
 })();
 var __extends = (this && this.__extends) || function (d, b) {
@@ -210,29 +242,28 @@ var Player = (function (_super) {
 ///<reference path="player.ts" />
 var controller = new Controller();
 var player = new Player('Jeppe', '.scene');
+controller.assignPlayer(player);
 var field = new Field();
-function doThings() {
-    // TODO: Fix prettier
-    if (controller.keyDown[Direction.UP]) {
-        player.move(Direction.UP);
-    }
-    if (controller.keyDown[Direction.RIGHT]) {
-        player.move(Direction.RIGHT);
-    }
-    if (controller.keyDown[Direction.DOWN]) {
-        player.move(Direction.DOWN);
-    }
-    if (controller.keyDown[Direction.LEFT]) {
-        player.move(Direction.LEFT);
-    }
-}
-document.onkeydown = function (event) {
-    controller.setKeyDown(event.keyCode);
-};
-document.onkeyup = function (event) {
-    controller.setKeyUp(event.keyCode);
-};
-window.onresize = function (event) {
-    //player.updatePosition();
-};
-setInterval(doThings, 5);
+$('.splash h1')
+    .velocity('fadeIn', { duration: 2000, delay: 1500, queue: false })
+    .velocity({ translateZ: ['0px', '-2000px'] }, { duration: 1000, delay: 1000 })
+    .velocity({ translateZ: ['0px', '120px'] }, { duration: 500, loop: true });
+$('.splash button')
+    .velocity({ translateY: ['0', '400px'] }, { duration: 'slow', delay: 1500, queue: false })
+    .velocity({ opacity: 1 }, { display: 'block', duration: 1000, delay: 2000 });
+$('.scene')
+    .velocity('fadeIn', { duration: 2000, queue: false })
+    .velocity({ translateZ: ['0px', '-40000px'] }, { queue: false, duration: 2000 })
+    .velocity({ rotateY: ['-130deg', '-40deg'], rotateX: ['110deg', '70deg'] }, { duration: 4000, loop: true });
+$('.splash button').click(function () {
+    $('.scene')
+        .velocity('stop')
+        .velocity({ rotateX: '0deg', rotateY: '0deg' }, { duration: 1500 });
+    $('.splash button')
+        .velocity({ translateY: '400px' }, { duration: 'fast', queue: false })
+        .velocity({ opacity: 0 }, { display: 'none', duration: 1000 });
+    $('.splash h1')
+        .velocity({ skewX: '-35deg' }, { duration: 'fast', queue: false })
+        .velocity({ translateX: '1500px' }, { duration: 400, queue: false })
+        .velocity({ opacity: 0 }, { display: 'none', duration: 1000 });
+});

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
 html, body {
   height: 100vh;
   margin: 0;
@@ -8,75 +9,48 @@ body {
   align-items: center;
   justify-content: center;
   background: #03A9F4;
-  perspective: 200vh; }
-
-.field {
-  display: none;
-  position: relative;
-  background: #B2EBF2; }
-
-.field .border {
-  position: absolute;
-  background: #0097A7; }
-
-.field .player {
-  background: #727272; }
+  perspective: 200vh;
+  overflow: hidden; }
 
 .scene {
   width: 75vh;
   height: 75vh;
   transform-style: preserve-3d;
-  background: rgba(178, 235, 242, 0.5);
-  transform: rotateY(-20deg) rotateX(50deg); }
+  background: rgba(178, 235, 242, 0.5); }
 
-@media only screen and (orientation: portrait) {
-  .field {
-    width: 75vw;
-    height: 75vw; }
-  .field .player {
-    width: calc(75vw * 0.08);
-    height: calc(75vw * 0.08); }
-  .field .border.top,
-  .field .border.bottom {
-    width: 78vw;
-    height: 1.5vw;
-    left: -1.5vw; }
-  .field .border.top {
-    top: -1.5vw; }
-  .field .border.bottom {
-    bottom: -1.5vw; }
-  .field .border.left,
-  .field .border.right {
-    width: 1.5vw;
-    height: 78vw;
-    top: -1.5vw; }
-  .field .border.left {
-    left: -1.5vw; }
-  .field .border.right {
-    right: -1.5vw; } }
+.splash {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
 
-@media only screen and (orientation: landscape) {
-  .field {
-    width: 75vh;
-    height: 75vh; }
-  .field .player {
-    width: calc(75vh * 0.08);
-    height: calc(75vh * 0.08); }
-  .field .border.top,
-  .field .border.bottom {
-    width: 78vh;
-    height: 1.5vh;
-    left: -1.5vh; }
-  .field .border.top {
-    top: -1.5vh; }
-  .field .border.bottom {
-    bottom: -1.5vh; }
-  .field .border.left,
-  .field .border.right {
-    width: 1.5vh;
-    height: 78vh;
-    top: -1.5vh; }
-  .field .border.left {
-    left: -1.5vh; }
-  .field .border.right {
-    right: -1.5vh; } }
+.splash h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 90pt;
+  color: #212121;
+  opacity: 0;
+  text-shadow: 0 1px 0 #B2EBF2, 0 2px 0 #B2EBF2, 0 3px 0 #B2EBF2, 0 4px 0 #B2EBF2, 0 5px 0 #B2EBF2, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15); }
+
+.splash button {
+  font-size: 18pt;
+  width: 130pt;
+  height: 35pt;
+  font-weight: 200;
+  display: none;
+  position: absolute;
+  left: calc(50vw - 65pt); }
+
+.splash .overlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; }

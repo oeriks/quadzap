@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
 @import "mixins";
 
 $background-color: #03A9F4;
@@ -24,34 +25,59 @@ body {
   justify-content: center;
   background: $background-color;
   perspective: 200vh;
+  overflow: hidden;
 }
-
-.field {
-  display: none;
-  position: relative;
-  background: $field-color;
-}
-.field .border {
-  position: absolute;
-  background: $field-border-color;
-}
-.field .player {
-  background: $player-color;
-}
-
 .scene {
   width: $container-width;
   height: $container-height;
   transform-style: preserve-3d;
   background: rgba(178, 235, 242, 0.5);
-  transform: rotateY(-20deg) rotateX(50deg);
 }
-
-@media only screen and (orientation: portrait) {
-  @include field-player-size('vw');
-  @include border-width-placement("vw");
+.splash {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-@media only screen and (orientation: landscape) {
-  @include field-player-size('vh');
-  @include border-width-placement("vh");
+.splash h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 90pt;
+  color: #212121;
+  opacity: 0;
+  text-shadow:  0 1px 0 #B2EBF2,
+                0 2px 0 #B2EBF2,
+                0 3px 0 #B2EBF2,
+                0 4px 0 #B2EBF2,
+                0 5px 0 #B2EBF2,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15);
+}
+.splash button {
+  font-size: 18pt;
+  width: 130pt;
+  height: 35pt;
+  font-weight: 200;
+  display: none;
+  position: absolute;
+  left: calc(50vw - 65pt);
+}
+.splash .overlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
