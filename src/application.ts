@@ -39,4 +39,4 @@ window.onresize = function(event) {
     //player.updatePosition();
 };
 
-setInterval(doThings, 17);
+setInterval(doThings, 5);

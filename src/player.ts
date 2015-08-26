@@ -11,7 +11,7 @@ class Player extends Cuboid {
     super(scene, width, height, depth, color);
     this.id = Math.floor(Math.random() * 1000);
     this.nick = nick;
-    this.speed = 1;
+    this.speed = 0.3;
 
   }
   move(direction: Direction) {

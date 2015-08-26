@@ -180,7 +180,7 @@ var Player = (function (_super) {
         _super.call(this, scene, width, height, depth, color);
         this.id = Math.floor(Math.random() * 1000);
         this.nick = nick;
-        this.speed = 1;
+        this.speed = 0.3;
     }
     Player.prototype.move = function (direction) {
         switch (direction) {
@@ -235,4 +235,4 @@ document.onkeyup = function (event) {
 window.onresize = function (event) {
     //player.updatePosition();
 };
-setInterval(doThings, 17);
+setInterval(doThings, 5);
