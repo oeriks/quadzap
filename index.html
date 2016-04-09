@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div id="scene"></div>
+    <template id="cuboidTemplate">
+      <style>
+        :host {
+          --multiplier: 0.5vw;
+          --width: 80;
+          --depth: 40;
+          --height: 30;
+          --color: #727272;
+          --top: 30;
+          --left: 30;
+          width: calc(var(--width) * var(--multiplier));
+          height: calc(var(--depth) * var(--multiplier));
+          position: absolute;
+          top: calc(var(--top) * var(--multiplier));
+          left: calc(var(--left) * var(--multiplier));
+          transform-style: preserve-3d;
+        }
+
+        :host figure {
+          margin: 0;
+          display: block;
+          position: absolute;
+          opacity: 0.2;
+          border: 1px solid rgba(0,0,0,.5);
+        }
+
+        :host .front,
+        :host .back {
+          width: calc(var(--width) * var(--multiplier));
+          height: calc(var(--height) * var(--multiplier));
+          top: calc((var(--depth) / var(--height) - 1) * (var(--height) / 2) * var(--multiplier));
+          background-color: var(--color);
+        }
+
+        :host .right,
+        :host .left {
+          width: calc(var(--height) * var(--multiplier));
+          height: calc(var(--depth) * var(--multiplier));
+          left: calc((var(--width) / var(--height) - 1) * (var(--height) / 2) * var(--multiplier));
+          background-color: var(--color);
+        }
+
+        :host .top,
+        :host .bottom {
+          width: calc(var(--width) * var(--multiplier));
+          height: calc(var(--depth) * var(--multiplier));
+          background-color: var(--color);
+        }
+
+        :host .front  { transform: rotateX( -90deg ) translateZ( calc(var(--depth) * var(--multiplier) / 2) ); }
+        :host .back   { transform: rotateX(  90deg ) translateZ( calc(var(--depth) * var(--multiplier) / 2) ); }
+        :host .right  { transform: rotateY(  90deg ) translateZ( calc(var(--width) * var(--multiplier) / 2) ); }
+        :host .left   { transform: rotateY( -90deg ) translateZ( calc(var(--width) * var(--multiplier) / 2) ); }
+        :host .top    { transform: rotateY(   0deg ) translateZ( calc(var(--height) * var(--multiplier) / 2) ); }
+        :host .bottom { transform: rotateX( 180deg ) translateZ( calc(var(--height) * var(--multiplier) / 2) ); }
+
+        :host { transform: translateZ( 1vh ) rotateY( -40deg ) rotateX( -40deg ); }
+
+      </style>
+      <figure class="front"></figure>
+      <figure class="back"></figure>
+      <figure class="right"></figure>
+      <figure class="left"></figure>
+      <figure class="top"></figure>
+      <figure class="bottom"></figure>
+    </template>
+    <script>
+      var scene = document.querySelector('#scene').createShadowRoot();
+      var cuboidTemplate = document.querySelector('#cuboidTemplate');
+      var clone = document.importNode(cuboidTemplate.content, true);
+      scene.appendChild(clone);
+    </script>
+    <script src="http://localhost:8080/static/bundle.js"></script>
+  </body>
+</html>
